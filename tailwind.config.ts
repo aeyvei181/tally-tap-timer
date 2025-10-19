@@ -47,6 +47,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        tally: {
+          mark: "hsl(var(--tally-mark))",
+          strike: "hsl(var(--tally-strike))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
