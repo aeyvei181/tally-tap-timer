@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Counter } from "@/types/counter";
-import { formatDistanceToNow } from "date-fns";
-import { Clock, Calendar } from "lucide-react";
+import { formatDistanceToNow, format } from "date-fns";
+import { Clock, Calendar, CalendarCheck } from "lucide-react";
 
 interface CounterCardProps {
   counter: Counter;
@@ -31,22 +31,30 @@ export const CounterCard = ({ counter, onClick }: CounterCardProps) => {
           <div className="text-3xl font-bold text-primary">{counter.count}</div>
         </div>
         
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
-            <span>{formatDistanceToNow(new Date(counter.startTime), { addSuffix: true })}</span>
+        <div className="space-y-2">
+          <div className="flex items-start gap-2 text-sm">
+            <Calendar className="w-4 h-4 mt-0.5 text-muted-foreground" />
+            <div>
+              <div className="text-muted-foreground">Started</div>
+              <div className="font-medium">{format(new Date(counter.startTime), "PPP 'at' p")}</div>
+            </div>
           </div>
-          <div className="flex items-center gap-1">
+          
+          {counter.endTime && (
+            <div className="flex items-start gap-2 text-sm">
+              <CalendarCheck className="w-4 h-4 mt-0.5 text-muted-foreground" />
+              <div>
+                <div className="text-muted-foreground">Ended</div>
+                <div className="font-medium">{format(new Date(counter.endTime), "PPP 'at' p")}</div>
+              </div>
+            </div>
+          )}
+          
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <Clock className="w-4 h-4" />
-            <span>{formatDuration(duration)}</span>
+            <span>Duration: {formatDuration(duration)}</span>
           </div>
         </div>
-
-        {counter.endTime && (
-          <div className="text-xs text-muted-foreground">
-            Ended {formatDistanceToNow(new Date(counter.endTime), { addSuffix: true })}
-          </div>
-        )}
       </div>
     </Card>
   );

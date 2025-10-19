@@ -6,7 +6,7 @@ import { ArrowLeft, Trash2, StopCircle, RotateCcw } from "lucide-react";
 import { getCounter, updateCounter, deleteCounter } from "@/lib/storage";
 import { Counter } from "@/types/counter";
 import { toast } from "sonner";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, format } from "date-fns";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -123,13 +123,22 @@ export const CounterView = () => {
         </div>
 
         <div className="bg-card rounded-3xl shadow-2xl p-8 border-2">
-          <h1 className="text-4xl font-bold text-center mb-2 text-foreground">
+          <h1 className="text-4xl font-bold text-center mb-4 text-foreground">
             {counter.name}
           </h1>
           
-          <div className="text-center text-sm text-muted-foreground mb-8">
-            Started {formatDistanceToNow(new Date(counter.startTime), { addSuffix: true })}
-            {counter.endTime && ` • Ended ${formatDistanceToNow(new Date(counter.endTime), { addSuffix: true })}`}
+          <div className="max-w-md mx-auto space-y-3 mb-8 text-sm">
+            <div className="bg-secondary/50 rounded-lg p-3">
+              <div className="text-muted-foreground mb-1">Start Date & Time</div>
+              <div className="font-semibold">{format(new Date(counter.startTime), "PPP 'at' p")}</div>
+            </div>
+            
+            {counter.endTime && (
+              <div className="bg-secondary/50 rounded-lg p-3">
+                <div className="text-muted-foreground mb-1">End Date & Time</div>
+                <div className="font-semibold">{format(new Date(counter.endTime), "PPP 'at' p")}</div>
+              </div>
+            )}
           </div>
 
           <div 
